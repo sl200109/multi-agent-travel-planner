@@ -29,6 +29,7 @@ pip-delete-this-directory.txt
 .venv/
 venv/
 ENV/
+.env
 
 # Java
 *.class
