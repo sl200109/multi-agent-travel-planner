@@ -30,8 +30,8 @@ class DestinationAgent(BaseAgent):
         # 如果没有记忆，就给一个默认提示，避免字段为空。
         memory_summary = "\n".join(item.summary for item in state.memory_context) or "暂无历史记忆。"
 
-        # 先构造检索词。
-        # 这一段就是“我要去搜什么”的自然语言版本。
+        # 构造检索词。
+
         query = (
             f"适合从{prefs.departure_city}出发、旅行风格为{prefs.travel_style.value}、"
             f"出行时间在{prefs.start_date}到{prefs.end_date}之间、预算约{prefs.budget:.0f}元、"
@@ -46,7 +46,7 @@ class DestinationAgent(BaseAgent):
         )
         print("开始进行目的地筛选")
 
-        # 先走真实搜索，拿到事实材料。
+        # 真实搜索，拿到事实材料
         search = await runtime.tavily.search(query, topic="general")
 
         await runtime.emitter.emit(
